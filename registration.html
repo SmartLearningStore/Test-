@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration - DK City</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #3b8d99, #6b6b6b);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .register-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    .register-btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #3b8d99;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+    }
+
+    .register-btn:hover {
+      background-color: #2e6a6a;
+    }
+
+    .login-link {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .login-link a {
+      color: #3b8d99;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <h2>Register</h2>
+    <input type="email" id="registerEmail" class="input-field" placeholder="Email">
+    <input type="password" id="registerPassword" class="input-field" placeholder="Password">
+    <input type="text" id="registerPhone" class="input-field" placeholder="Phone Number">
+    <input type="text" id="registerName" class="input-field" placeholder="Name">
+    <button class="register-btn" onclick="registerUser()">Register</button>
+    <div class="login-link">
+      <p>Already have an account? <a href="index.html">Login here</a></p>
+    </div>
+    <div id="errorMessage" class="error-message"></div>
+  </div>
+
+  <script>
+    function registerUser() {
+      const email = document.getElementById('registerEmail').value;
+      const password = document.getElementById('registerPassword').value;
+      const phone = document.getElementById('registerPhone').value;
+      const name = document.getElementById('registerName').value;
+      const errorMessage = document.getElementById('errorMessage');
+
+      fetch(`https://script.google.com/macros/s/AKfycbzJTw28quJBJaCDYu6RVcUwnWAIlzNJAxWHwwyyz5pau-R6sjx3pnM0PUb_Of5fM8aN-g/exec?action=register&email=${email}&password=${password}&phone=${phone}&name=${name}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'Registration successful!') {
+            window.location.href = 'index.html'; // Redirect to login page
+          } else {
+            errorMessage.innerText = data.message; // Show error message
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  </script>
+</body>
+  </html>
