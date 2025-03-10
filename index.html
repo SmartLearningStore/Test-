@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - DK City</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #3b8d99, #6b6b6b);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      animation: gradientAnimation 5s infinite alternate;
+    }
+    
+    @keyframes gradientAnimation {
+      0% {
+        background: linear-gradient(135deg, #3b8d99, #6b6b6b);
+      }
+      100% {
+        background: linear-gradient(135deg, #6b6b6b, #3b8d99);
+      }
+    }
+
+    .login-container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #3b8d99;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: 0.3s;
+    }
+
+    .login-btn:hover {
+      background-color: #2e6a6a;
+    }
+
+    .register-link {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .register-link a {
+      color: #3b8d99;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login</h2>
+    <input type="email" id="loginEmail" class="input-field" placeholder="Email">
+    <input type="password" id="loginPassword" class="input-field" placeholder="Password">
+    <button class="login-btn" onclick="loginUser()">Login</button>
+    <div class="register-link">
+      <p>Don't have an account? <a href="registration.html">Register here</a></p>
+    </div>
+    <div id="errorMessage" class="error-message"></div>
+  </div>
+
+  <script>
+    function loginUser() {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      const errorMessage = document.getElementById('errorMessage');
+
+      fetch(`https://script.google.com/macros/s/AKfycbzJTw28quJBJaCDYu6RVcUwnWAIlzNJAxWHwwyyz5pau-R6sjx3pnM0PUb_Of5fM8aN-g/exec?action=login&email=${email}&password=${password}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'Login successful!') {
+            window.location.href = 'main.html'; // Redirect to main page
+          } else {
+            errorMessage.innerText = 'Invalid email or password';
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  </script>
+</body>
+  </html>
